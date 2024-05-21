@@ -34,6 +34,8 @@ jobs:
           debug: true
           review_comment_lgtm: false
           openai_heavy_model: gpt-4
+          openai_timeout_ms: 900000
+          language: ja-jP
           path_filters: |
             !dist/**
             !**/*.lock
