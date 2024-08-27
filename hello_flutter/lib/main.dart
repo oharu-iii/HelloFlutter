@@ -27,49 +27,60 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.blue,
         ),
 
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Row(
+        body: const TweetTile()
+
+      ),
+    );
+  }
+}
+
+class TweetTile extends StatelessWidget {
+  const TweetTile({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const CircleAvatar(
+            backgroundImage: NetworkImage('https://pbs.twimg.com/profile_images/1782305774544564224/ujx6tKey_400x400.jpg'),
+          ),
+          const SizedBox(width: 8),
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CircleAvatar(
-                backgroundImage: NetworkImage('https://pbs.twimg.com/profile_images/1782305774544564224/ujx6tKey_400x400.jpg'),
-              ),
-              const SizedBox(width: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              const Row(
                 children: [
-                  const Row(
-                    children: [
-                      Text('おはる'),
-                      SizedBox(width: 8),
-                      Text('2024/08/28'),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  const Text('こんにちは！'),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: (){},
-                        icon: const Icon(Icons.favorite_border),
-                      ),
-                      IconButton(
-                        onPressed: (){}, 
-                        icon: const Icon(Icons.chat_bubble_outline)
-                      ),
-                      IconButton(
-                        onPressed: (){}, 
-                        icon: const Icon(Icons.send_outlined)
-                      ),
-                    ],
-                  )
+                  Text('おはる'),
+                  SizedBox(width: 8),
+                  Text('2024/08/28'),
                 ],
               ),
+              const SizedBox(height: 4),
+              const Text('こんにちは！'),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: (){},
+                    icon: const Icon(Icons.favorite_border),
+                  ),
+                  IconButton(
+                    onPressed: (){},
+                    icon: const Icon(Icons.chat_bubble_outline)
+                  ),
+                  IconButton(
+                    onPressed: (){},
+                    icon: const Icon(Icons.send_outlined)
+                  ),
+                ],
+              )
             ],
           ),
-        )
-
+        ],
       ),
     );
   }
