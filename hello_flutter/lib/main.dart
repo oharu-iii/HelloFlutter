@@ -27,25 +27,9 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.blue,
         ),
 
-        body: const SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Column(
-            children: [
-              TweetTile(),
-              TweetTile(),
-              TweetTile(),
-              TweetTile(),
-              TweetTile(),
-              TweetTile(),
-              TweetTile(),
-              TweetTile(),
-              TweetTile(),
-              TweetTile(),
-              TweetTile(),
-              TweetTile(),
-              TweetTile(),
-              TweetTile(),
-              TweetTile(),
-            ],
+            children: List.generate(15, (index) => const TweetTile()),
           ),
         ),
       ),
