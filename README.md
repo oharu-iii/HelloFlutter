@@ -13,4 +13,10 @@ CodeRabbitとFlutterをさわってみようね
 環境構築：[Choose your development platform to get started](https://flutter.dev/docs/get-started/install)
 
 チュートリアル：[Flutterの教科書 by Flutter大学](https://zenn.dev/flutteruniv/books/flutter-textbook)
- 
+
+### hello_flutter
+
+[Widgetの基礎『Twitter UI』](https://zenn.dev/flutteruniv/books/flutter-textbook/viewer/make-twitter-ui) を参考にし、TwitterUIに寄せたデザインを作成。
+
+https://github.com/user-attachments/assets/904a418e-44ea-42e3-8ed0-9fdb67dab987
+
