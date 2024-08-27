@@ -13,8 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'おはる',
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -25,6 +26,25 @@ class MyApp extends StatelessWidget {
           elevation: 0.5,
           backgroundColor: Colors.blue,
         ),
+
+        body: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text('おはる'),
+                  SizedBox(width: 8),
+                  Text('2024/08/28'),
+                ],
+              ),
+              SizedBox(height: 4),
+              Text('こんにちは！'),
+            ],
+          ),
+        )
+
       ),
     );
   }
