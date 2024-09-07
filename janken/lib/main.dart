@@ -39,6 +39,22 @@ class _JankenPageState extends State<JankenPage> {
           ),),
         backgroundColor: Colors.blue,
       ),
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('✊')),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('✌️')),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('🖐️')),
+          ],
+        ),
+      ),
     );
   }
 }
