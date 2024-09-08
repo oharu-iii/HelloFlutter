@@ -48,6 +48,12 @@ class _JankenPageState extends State<JankenPage> {
 
   String myHand = Hands.rock.hand;
 
+  void selectHand(String selectedHand) {
+    myHand = selectedHand;
+    print(myHand);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,17 +81,17 @@ class _JankenPageState extends State<JankenPage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    print(Hands.rock.hand);
+                    selectHand(Hands.rock.hand);
                   },
                   child: Text(Hands.rock.hand)),
                 ElevatedButton(
                   onPressed: () {
-                    print(Hands.scissors.hand);
+                    selectHand(Hands.scissors.hand);
                   },
                   child: Text(Hands.scissors.hand)),
                 ElevatedButton(
                   onPressed: () {
-                    print(Hands.paper.hand);
+                    selectHand(Hands.paper.hand);
                   },
                   child: Text(Hands.paper.hand)),
               ],
