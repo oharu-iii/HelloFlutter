@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -47,11 +49,19 @@ enum Hands {
 class _JankenPageState extends State<JankenPage> {
 
   String myHand = Hands.rock.hand;
+  String computerHand = Hands.rock.hand;
 
   void selectHand(String selectedHand) {
     myHand = selectedHand;
     print(myHand);
+    generateComputerHand();
     setState(() {});
+  }
+
+  void generateComputerHand() {
+    final randomInt = Random().nextInt(Hands.values.length);
+    computerHand = Hands.values[randomInt].hand;
+    print(computerHand);
   }
 
   @override
@@ -69,6 +79,13 @@ class _JankenPageState extends State<JankenPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              computerHand,
+              style: TextStyle(
+                fontSize: 32,
+              ),
+            ),
+            SizedBox(height: 48),
             Text(
               myHand,
               style: TextStyle(
