@@ -27,7 +27,27 @@ class JankenPage extends StatefulWidget {
   State<JankenPage> createState() => _JankenPageState();
 }
 
+enum Hands {
+  rock('✊'),
+  scissors('✌️'),
+  paper('🖐️');
+
+  const Hands(this.hand);
+
+  final String hand;
+
+  static final Map<String, Hands> _map = {
+    for (final value in Hands.values) value.hand: value
+  };
+
+  static Hands getHandFromString(String value) {
+    return _map[value] ?? rock;
+  }
+}
 class _JankenPageState extends State<JankenPage> {
+
+  String myHand = Hands.rock.hand;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,18 +60,36 @@ class _JankenPageState extends State<JankenPage> {
         backgroundColor: Colors.blue,
       ),
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('✊')),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('✌️')),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('🖐️')),
+            Text(
+              myHand,
+              style: TextStyle(
+                fontSize: 32,
+              ),
+            ),
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    print(Hands.rock.hand);
+                  },
+                  child: Text(Hands.rock.hand)),
+                ElevatedButton(
+                  onPressed: () {
+                    print(Hands.scissors.hand);
+                  },
+                  child: Text(Hands.scissors.hand)),
+                ElevatedButton(
+                  onPressed: () {
+                    print(Hands.paper.hand);
+                  },
+                  child: Text(Hands.paper.hand)),
+              ],
+            ),
           ],
         ),
       ),
