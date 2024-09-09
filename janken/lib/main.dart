@@ -35,7 +35,6 @@ enum Hands {
   paper('🖐️');
 
   const Hands(this.hand);
-
   final String hand;
 
   static final Map<String, Hands> _map = {
@@ -46,22 +45,74 @@ enum Hands {
     return _map[value] ?? rock;
   }
 }
+
+enum Results {
+  win('あなたの勝ち！🥳'),
+  draw('あいこ🤔'),
+  lose('あなたの負け…🫠');
+
+  const Results(this.result);
+  final String result;
+
+  static Results judge(Hands yourHand, Hands othersHand) {
+    if (yourHand == othersHand) {
+      // あいこ
+      return Results.draw;
+    } else {
+      // その他
+      switch (yourHand) {
+        case Hands.rock:
+          return othersHand == Hands.scissors ? Results.win : Results.lose;
+        case Hands.scissors:
+          return othersHand == Hands.paper ? Results.win : Results.lose;
+        case Hands.paper:
+          return othersHand == Hands.rock ? Results.win : Results.lose;
+      }
+    }
+  }
+}
+
+enum Titles {
+  first('じゃんけん……'),
+  draw('あいこで……'),
+  other('じゃんけん……ぽん！');
+
+  const Titles(this.title);
+  final String title;
+}
+
 class _JankenPageState extends State<JankenPage> {
 
-  String myHand = Hands.rock.hand;
-  String computerHand = Hands.rock.hand;
+  Hands myHand = Hands.rock;
+  Hands computerHand = Hands.rock;
 
-  void selectHand(String selectedHand) {
+  String title = Titles.first.title;
+  String result = '';
+
+  void selectHand(Hands selectedHand) {
     myHand = selectedHand;
     print(myHand);
     generateComputerHand();
+    showResults(Results.judge(myHand, computerHand));
     setState(() {});
   }
 
   void generateComputerHand() {
     final randomInt = Random().nextInt(Hands.values.length);
-    computerHand = Hands.values[randomInt].hand;
+    computerHand = Hands.values[randomInt];
     print(computerHand);
+  }
+
+  void showResults(Results results) {
+    // 結果表示
+    result = results.result;
+
+    // タイトルを修正
+    if (results == Results.draw) {
+      title = Titles.draw.title;
+    } else {
+      title = Titles.other.title;
+    }
   }
 
   @override
@@ -80,14 +131,21 @@ class _JankenPageState extends State<JankenPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              computerHand,
+              title,
+              style: TextStyle(
+                fontSize: 32,
+              ),
+            ),
+            SizedBox(height: 54),
+            Text(
+              '🤖\n'+computerHand.hand,
               style: TextStyle(
                 fontSize: 32,
               ),
             ),
             SizedBox(height: 48),
             Text(
-              myHand,
+              myHand.hand,
               style: TextStyle(
                 fontSize: 32,
               ),
@@ -98,20 +156,27 @@ class _JankenPageState extends State<JankenPage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    selectHand(Hands.rock.hand);
+                    selectHand(Hands.rock);
                   },
                   child: Text(Hands.rock.hand)),
                 ElevatedButton(
                   onPressed: () {
-                    selectHand(Hands.scissors.hand);
+                    selectHand(Hands.scissors);
                   },
                   child: Text(Hands.scissors.hand)),
                 ElevatedButton(
                   onPressed: () {
-                    selectHand(Hands.paper.hand);
+                    selectHand(Hands.paper);
                   },
                   child: Text(Hands.paper.hand)),
               ],
+            ),
+            SizedBox(height: 54),
+            Text(
+              result,
+              style: TextStyle(
+                fontSize: 32,
+              ),
             ),
           ],
         ),
