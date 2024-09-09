@@ -162,17 +162,35 @@ class _JankenPageState extends State<JankenPage> {
                   onPressed: () {
                     selectHand(Hands.rock);
                   },
-                  child: Text(Hands.rock.hand)),
+                  child: Text(
+                    Hands.rock.hand,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  )
+                ),
                 ElevatedButton(
                   onPressed: () {
                     selectHand(Hands.scissors);
                   },
-                  child: Text(Hands.scissors.hand)),
+                  child: Text(
+                    Hands.scissors.hand,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  )
+                ),
                 ElevatedButton(
                   onPressed: () {
                     selectHand(Hands.paper);
                   },
-                  child: Text(Hands.paper.hand)),
+                  child: Text(
+                    Hands.paper.hand,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  )
+                ),
               ],
             ),
             SizedBox(height: 54),
