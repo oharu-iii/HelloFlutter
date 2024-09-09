@@ -54,6 +54,14 @@ enum Results {
   const Results(this.result);
   final String result;
 
+  static final Map<String, Results> _map = {
+    for (final value in Results.values) value.result: value
+  };
+
+  static Results getResultFromString(String value) {
+    return _map[value] ?? win;
+  }
+
   static Results judge(Hands yourHand, Hands othersHand) {
     if (yourHand == othersHand) {
       // あいこ
@@ -74,8 +82,8 @@ enum Results {
 
 enum Titles {
   first('じゃんけん……'),
-  draw('あいこで……'),
-  other('じゃんけん……ぽん！');
+  draw('あいこで……しょ！'),
+  end('じゃんけん……ぽん！');
 
   const Titles(this.title);
   final String title;
@@ -86,7 +94,7 @@ class _JankenPageState extends State<JankenPage> {
   Hands myHand = Hands.rock;
   Hands computerHand = Hands.rock;
 
-  String title = Titles.first.title;
+  Titles title = Titles.first;
   String result = '';
 
   void selectHand(Hands selectedHand) {
@@ -104,15 +112,11 @@ class _JankenPageState extends State<JankenPage> {
   }
 
   void showResults(Results results) {
+    // 前の結果に合わせてタイトルを修正
+    title = Results.getResultFromString(result) == Results.draw ? Titles.draw : Titles.end;
+
     // 結果表示
     result = results.result;
-
-    // タイトルを修正
-    if (results == Results.draw) {
-      title = Titles.draw.title;
-    } else {
-      title = Titles.other.title;
-    }
   }
 
   @override
@@ -131,7 +135,7 @@ class _JankenPageState extends State<JankenPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              title,
+              title.title,
               style: TextStyle(
                 fontSize: 32,
               ),
