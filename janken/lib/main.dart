@@ -97,8 +97,10 @@ class _JankenPageState extends State<JankenPage> {
     setState(() {});
   }
 
+  final _random = Random();
+
   void generateComputerHand() {
-    final randomInt = Random().nextInt(Hands.values.length);
+    final randomInt = _random.nextInt(Hands.values.length);
     computerHand = Hands.values[randomInt];
   }
 
