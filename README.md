@@ -20,3 +20,9 @@ CodeRabbitとFlutterをさわってみようね
 
 https://github.com/user-attachments/assets/904a418e-44ea-42e3-8ed0-9fdb67dab987
 
+### janken
+
+[変数・関数・条件分岐の基礎『じゃんけん』](https://zenn.dev/flutteruniv/books/flutter-textbook/viewer/make-janken-game) を参考にし、コンピュータとじゃんけんできるアプリを作成。
+
+https://github.com/user-attachments/assets/a95e5cb2-30c7-4d27-a264-f35ec88c5e94
+
