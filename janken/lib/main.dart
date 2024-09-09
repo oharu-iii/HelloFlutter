@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: JankenPage(),
+      home: const JankenPage(),
     );
   }
 }
@@ -99,7 +99,6 @@ class _JankenPageState extends State<JankenPage> {
 
   void selectHand(Hands selectedHand) {
     myHand = selectedHand;
-    print(myHand);
     generateComputerHand();
     showResults(Results.judge(myHand, computerHand));
     setState(() {});
@@ -108,7 +107,6 @@ class _JankenPageState extends State<JankenPage> {
   void generateComputerHand() {
     final randomInt = Random().nextInt(Hands.values.length);
     computerHand = Hands.values[randomInt];
-    print(computerHand);
   }
 
   void showResults(Results results) {
@@ -123,7 +121,7 @@ class _JankenPageState extends State<JankenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'じゃんけん',
           style: TextStyle(
             color: Colors.white,
@@ -136,25 +134,25 @@ class _JankenPageState extends State<JankenPage> {
           children: [
             Text(
               title.title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 32,
               ),
             ),
-            SizedBox(height: 54),
+            const SizedBox(height: 54),
             Text(
-              '🤖\n'+computerHand.hand,
-              style: TextStyle(
+              '🤖\n${computerHand.hand}',
+              style: const TextStyle(
                 fontSize: 32,
               ),
             ),
-            SizedBox(height: 48),
+            const SizedBox(height: 48),
             Text(
               myHand.hand,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 32,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -164,7 +162,7 @@ class _JankenPageState extends State<JankenPage> {
                   },
                   child: Text(
                     Hands.rock.hand,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                     ),
                   )
@@ -175,7 +173,7 @@ class _JankenPageState extends State<JankenPage> {
                   },
                   child: Text(
                     Hands.scissors.hand,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                     ),
                   )
@@ -186,17 +184,17 @@ class _JankenPageState extends State<JankenPage> {
                   },
                   child: Text(
                     Hands.paper.hand,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                     ),
                   )
                 ),
               ],
             ),
-            SizedBox(height: 54),
+            const SizedBox(height: 54),
             Text(
               result,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 32,
               ),
             ),
