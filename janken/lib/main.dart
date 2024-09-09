@@ -62,21 +62,14 @@ enum Results {
     return _map[value] ?? win;
   }
 
+  static const Map<Hands, Map<Hands, Results>> _resultsMap = {
+    Hands.rock: {Hands.rock: Results.draw, Hands.scissors: Results.win, Hands.paper: Results.lose},
+    Hands.scissors: {Hands.rock: Results.lose, Hands.scissors: Results.draw, Hands.paper: Results.win},
+    Hands.paper: {Hands.rock: Results.win, Hands.scissors: Results.lose, Hands.paper: Results.draw},
+  };
+
   static Results judge(Hands yourHand, Hands othersHand) {
-    if (yourHand == othersHand) {
-      // あいこ
-      return Results.draw;
-    } else {
-      // その他
-      switch (yourHand) {
-        case Hands.rock:
-          return othersHand == Hands.scissors ? Results.win : Results.lose;
-        case Hands.scissors:
-          return othersHand == Hands.paper ? Results.win : Results.lose;
-        case Hands.paper:
-          return othersHand == Hands.rock ? Results.win : Results.lose;
-      }
-    }
+    return _resultsMap[yourHand]?[othersHand] ?? Results.win;
   }
 }
 
