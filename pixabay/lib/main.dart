@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +35,7 @@ class PixabayPage extends StatefulWidget {
 class _PixabayPageState extends State<PixabayPage> {
 
   List imageList = [];
+  String fieldText = 'りんご';
 
   Future<void> fetchImages(String text) async {
     Response response = await Dio().get(
@@ -44,7 +49,7 @@ class _PixabayPageState extends State<PixabayPage> {
   void initState() {
     super.initState();
     // 最初に一度だけ画像データ取得
-    fetchImages('りんご');
+    fetchImages(fieldText);
   }
 
   @override
@@ -55,45 +60,74 @@ class _PixabayPageState extends State<PixabayPage> {
           decoration: InputDecoration(
             fillColor: Colors.white,
             filled: true,
+            hintText: fieldText,
           ),
           onFieldSubmitted: (text) {
-            print(text);
-            fetchImages(text);
+            fieldText = text;
+            fetchImages(fieldText);
           },
         ),
         backgroundColor: Colors.blue,
       ),
+      // 並べて表示
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
         ),
         itemCount: imageList.length,
         itemBuilder: (context, index) {
+          // 表示する画像をリストから取得
           Map<String, dynamic> image = imageList[index];
-          return Stack(
-            fit: StackFit.expand,
-            children: [
-              Image.network(
-                image['previewURL'],
-                fit: BoxFit.cover,
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Container(
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.thumb_up_alt_outlined,
-                        size: 14,
-                      ),
-                      Text(image['likes'].toString()),
-                    ],
+          return InkWell(
+            // 画像タップでシェア
+            onTap: () async {
+              Directory dir = await getTemporaryDirectory();
+
+              Response response = await Dio().get(
+                image['webformatURL'],
+                options: Options(responseType: ResponseType.bytes),
+              );
+
+              File imageFile = await File('${dir.path}/image.png').writeAsBytes(response.data);
+
+              await Share.shareXFiles(
+                [
+                  XFile.fromData(
+                    imageFile.readAsBytesSync(),
+                    name: 'image.png',
+                    mimeType: 'image/png',
                   )
+                ],
+                subject: fieldText
+              );
+            },
+            // タップする画像を表示
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.network(
+                  image['previewURL'],
+                  fit: BoxFit.cover,
                 ),
-              ),
-            ],
+                // いいねアイコンを右下に表示
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    color: Colors.white,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.thumb_up_alt_outlined,
+                          size: 14,
+                        ),
+                        Text(image['likes'].toString()),
+                      ],
+                    )
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),
