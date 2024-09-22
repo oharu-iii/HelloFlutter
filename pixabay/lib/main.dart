@@ -51,6 +51,26 @@ class _PixabayPageState extends State<PixabayPage> {
     setState(() {});
   }
 
+  Future<void> shareImage(String url) async {
+    final Directory dir = await getTemporaryDirectory();
+
+    final Response response = await Dio().get(
+      url,
+      options: Options(responseType: ResponseType.bytes),
+    );
+
+    final File imageFile =
+        await File('${dir.path}/image.png').writeAsBytes(response.data);
+
+    await Share.shareXFiles([
+      XFile.fromData(
+        imageFile.readAsBytesSync(),
+        name: 'image.png',
+        mimeType: 'image/png',
+      )
+    ], subject: fieldText);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -87,23 +107,7 @@ class _PixabayPageState extends State<PixabayPage> {
           return InkWell(
             // 画像タップでシェア
             onTap: () async {
-              final Directory dir = await getTemporaryDirectory();
-
-              final Response response = await Dio().get(
-                image['webformatURL'],
-                options: Options(responseType: ResponseType.bytes),
-              );
-
-              final File imageFile = await File('${dir.path}/image.png')
-                  .writeAsBytes(response.data);
-
-              await Share.shareXFiles([
-                XFile.fromData(
-                  imageFile.readAsBytesSync(),
-                  name: 'image.png',
-                  mimeType: 'image/png',
-                )
-              ], subject: fieldText);
+              shareImage(image['webformatURL']);
             },
             // タップする画像を表示
             child: Stack(
