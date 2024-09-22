@@ -107,10 +107,11 @@ class _PixabayPageState extends State<PixabayPage> {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                Image.network(
-                  image['previewURL'],
-                  fit: BoxFit.cover,
-                ),
+                image['previewURL'] != null ?
+                  Image.network(
+                    image['previewURL'],
+                    fit: BoxFit.cover,
+                  ) : const SizedBox(),
                 // いいねアイコンを右下に表示
                 Align(
                   alignment: Alignment.bottomRight,
