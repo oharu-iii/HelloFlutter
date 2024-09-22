@@ -48,8 +48,9 @@ class _PixabayPageState extends State<PixabayPage> {
       },
     );
     final List hits = response.data['hits'];
+    pixabayImages = hits.map((e) => PixabayImage.fromMap(e)).toList();
     setState(() {
-      pixabayImages = hits.map((e) => PixabayImage.fromMap(e)).toList();
+      pixabayImages.sort((a, b) => b.likes - a.likes);
     });
   }
 
