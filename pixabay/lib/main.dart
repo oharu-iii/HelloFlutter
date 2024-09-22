@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: '.env');
   runApp(const MyApp());
 }
 
@@ -39,7 +41,7 @@ class _PixabayPageState extends State<PixabayPage> {
 
   Future<void> fetchImages(String text) async {
     Response response = await Dio().get(
-      'https://pixabay.com/api/?key=46126743-24df09ce9aa7b42620cea4475&q=$text&image_type=photo'
+      'https://pixabay.com/api/?key=${dotenv.get('API_KEY')}&q=$text&image_type=photo'
     );
     imageList = response.data['hits'];
     setState(() {});
