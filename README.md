@@ -29,6 +29,7 @@ https://github.com/user-attachments/assets/a95e5cb2-30c7-4d27-a264-f35ec88c5e94
 ### pixabay
 
 [09フリー画像検索アプリ【前編】](https://zenn.dev/flutteruniv/books/flutter-textbook/viewer/search-free-image-1), [10フリー画像検索アプリ【後編】](https://zenn.dev/flutteruniv/books/flutter-textbook/viewer/search-free-image-2) から、pixabay を使ってフリー画像を検索できるアプリを作成。
+また [11フリー画像検索アプリ【改善】](https://zenn.dev/flutteruniv/books/flutter-textbook/viewer/search-free-image-3) を参考に、 pixabay アプリをリファクタリング。
 
 - Dio で [Pixabay Developer API](https://pixabay.com/ja/service/about/api/) を叩く
 - path_provider で directory を取得
