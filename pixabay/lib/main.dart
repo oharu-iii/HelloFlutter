@@ -30,11 +30,14 @@ class PixabayPage extends StatefulWidget {
 
 class _PixabayPageState extends State<PixabayPage> {
 
+  List imageList = [];
+
   Future<void> fetchImages() async {
     Response response = await Dio().get(
       'https://pixabay.com/api/?key=46126743-24df09ce9aa7b42620cea4475&q=yellow+flowers&image_type=photo'
     );
-    print(response);
+    imageList = response.data['hits'];
+    setState(() {});
   }
 
   @override
@@ -46,7 +49,18 @@ class _PixabayPageState extends State<PixabayPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+        ),
+        itemCount: imageList.length,
+        itemBuilder: (context, index) {
+          Map<String, dynamic> image = imageList[index];
+          return Image.network(image['previewURL']);
+        },
+      ),
+    );
   }
 }
 
