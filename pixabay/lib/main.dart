@@ -70,7 +70,15 @@ class _PixabayPageState extends State<PixabayPage> {
         itemCount: imageList.length,
         itemBuilder: (context, index) {
           Map<String, dynamic> image = imageList[index];
-          return Image.network(image['previewURL']);
+          return Stack(
+            children: [
+              Image.network(image['previewURL']),
+              Container(
+                color: Colors.white,
+                child: Text(image['likes'].toString())
+              ),
+            ],
+          );
         },
       ),
     );
