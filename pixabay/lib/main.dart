@@ -156,8 +156,8 @@ class PixabayImage {
 
   factory PixabayImage.fromMap(Map<String, dynamic> map) {
     return PixabayImage(
-        previewURL: map['previewURL'],
-        likes: map['likes'],
-        webformatURL: map['webformatURL']);
+        previewURL: map['previewURL'] ?? '',
+        likes: map['likes'] ?? 0,
+        webformatURL: map['webformatURL'] ?? '');
   }
 }
