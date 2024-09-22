@@ -39,7 +39,7 @@ class _PixabayPageState extends State<PixabayPage> {
   String fieldText = 'りんご';
 
   Future<void> fetchImages(String text) async {
-    Response response = await Dio().get(
+    final Response response = await Dio().get(
         'https://pixabay.com/api/?key=${dotenv.get('API_KEY')}&q=$text&image_type=photo');
     imageList = response.data['hits'];
     setState(() {});
@@ -81,14 +81,14 @@ class _PixabayPageState extends State<PixabayPage> {
           return InkWell(
             // 画像タップでシェア
             onTap: () async {
-              Directory dir = await getTemporaryDirectory();
+              final Directory dir = await getTemporaryDirectory();
 
-              Response response = await Dio().get(
+              final Response response = await Dio().get(
                 image['webformatURL'],
                 options: Options(responseType: ResponseType.bytes),
               );
 
-              File imageFile = await File('${dir.path}/image.png')
+              final File imageFile = await File('${dir.path}/image.png')
                   .writeAsBytes(response.data);
 
               await Share.shareXFiles([
