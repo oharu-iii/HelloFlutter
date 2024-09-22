@@ -35,14 +35,12 @@ class PixabayPage extends StatefulWidget {
 }
 
 class _PixabayPageState extends State<PixabayPage> {
-
   List imageList = [];
   String fieldText = 'りんご';
 
   Future<void> fetchImages(String text) async {
     Response response = await Dio().get(
-      'https://pixabay.com/api/?key=${dotenv.get('API_KEY')}&q=$text&image_type=photo'
-    );
+        'https://pixabay.com/api/?key=${dotenv.get('API_KEY')}&q=$text&image_type=photo');
     imageList = response.data['hits'];
     setState(() {});
   }
@@ -90,44 +88,42 @@ class _PixabayPageState extends State<PixabayPage> {
                 options: Options(responseType: ResponseType.bytes),
               );
 
-              File imageFile = await File('${dir.path}/image.png').writeAsBytes(response.data);
+              File imageFile = await File('${dir.path}/image.png')
+                  .writeAsBytes(response.data);
 
-              await Share.shareXFiles(
-                [
-                  XFile.fromData(
-                    imageFile.readAsBytesSync(),
-                    name: 'image.png',
-                    mimeType: 'image/png',
-                  )
-                ],
-                subject: fieldText
-              );
+              await Share.shareXFiles([
+                XFile.fromData(
+                  imageFile.readAsBytesSync(),
+                  name: 'image.png',
+                  mimeType: 'image/png',
+                )
+              ], subject: fieldText);
             },
             // タップする画像を表示
             child: Stack(
               fit: StackFit.expand,
               children: [
-                image['previewURL'] != null ?
-                  Image.network(
-                    image['previewURL'],
-                    fit: BoxFit.cover,
-                  ) : const SizedBox(),
+                image['previewURL'] != null
+                    ? Image.network(
+                        image['previewURL'],
+                        fit: BoxFit.cover,
+                      )
+                    : const SizedBox(),
                 // いいねアイコンを右下に表示
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Container(
-                    color: Colors.white,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.thumb_up_alt_outlined,
-                          size: 14,
-                        ),
-                        Text(image['likes'].toString()),
-                      ],
-                    )
-                  ),
+                      color: Colors.white,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.thumb_up_alt_outlined,
+                            size: 14,
+                          ),
+                          Text(image['likes'].toString()),
+                        ],
+                      )),
                 ),
               ],
             ),
@@ -137,4 +133,3 @@ class _PixabayPageState extends State<PixabayPage> {
     );
   }
 }
-
