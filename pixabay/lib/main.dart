@@ -40,7 +40,13 @@ class _PixabayPageState extends State<PixabayPage> {
 
   Future<void> fetchImages(String text) async {
     final Response response = await Dio().get(
-        'https://pixabay.com/api/?key=${dotenv.get('API_KEY')}&q=$text&image_type=photo');
+        'https://pixabay.com/api/',
+        queryParameters: {
+          'key' : dotenv.get('API_KEY'),
+          'q' : text,
+          'image_type' : 'photo'
+        },
+    );
     imageList = response.data['hits'];
     setState(() {});
   }
